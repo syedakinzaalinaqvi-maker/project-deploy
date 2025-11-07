@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Contact Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📬 Contact Form</h1>
+
+    <div class="form-card">
+      <form id="contactForm">
+        <input name="name" placeholder="Your Name" required>
+        <input name="email" type="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <p id="msg"></p>
+    </div>
+
+    <div class="table-section">
+      <h2>📋 Submissions</h2>
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+  const msg = document.getElementById('msg');
+  const form = document.getElementById('contactForm');
+  const tbody = document.querySelector('#dataTable tbody');
+
+  // Handle form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = "Submitting...";
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    };
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      const j = await res.json();
+      msg.textContent = j.message || (j.success ? 'Saved!' : 'Error');
+      form.reset();
+      loadSubmissions();
+    } catch {
+      msg.textContent = "Network error!";
+    }
+  });
+
+  // Load submissions
+  async function loadSubmissions() {
+    tbody.innerHTML = "<tr><td colspan='5'>Loading...</td></tr>";
+    try {
+      const res = await fetch('/api/submissions');
+      const data = await res.json();
+      if (!Array.isArray(data)) throw new Error();
+      tbody.innerHTML = data.map((row, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${row.name}</td>
+          <td>${row.email}</td>
+          <td>${row.message || ''}</td>
+          <td>${new Date(row.created_at).toLocaleString()}</td>
+        </tr>
+      `).join('');
+    } catch {
+      tbody.innerHTML = "<tr><td colspan='5'>Failed to load data</td></tr>";
+    }
+  }
+
+  window.onload = loadSubmissions;
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 30px;
+  text-align: center;
+}
+
+h1 {
+  color: #001aff;
+  margin-bottom: 20px;
+}
+
+.form-card {
+  background: #f8f9ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input, textarea {
+  padding: 12px;
+  border: 2px solid #d0d4ff;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #001aff;
+  box-shadow: 0 0 5px rgba(0,26,255,0.3);
+}
+
+button {
+  background: #001aff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0027ff;
+}
+
+#msg {
+  margin-top: 10px;
+  color: #001aff;
+  font-weight: 500;
+}
+
+.table-section {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.table-section h2 {
+  text-align: center;
+  color: #001aff;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #001aff;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #f2f4ff;
+}
